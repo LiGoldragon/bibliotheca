@@ -56,6 +56,52 @@ let client = Client::from_config(Config {
 });
 ```
 
+## MCP server
+
+The crate includes an MCP server binary for use with Claude and other
+MCP clients.
+
+```sh
+cargo build
+```
+
+### Direct (no VPN)
+
+```json
+{
+  "mcpServers": {
+    "annas-archive": {
+      "command": "/path/to/annas-archive/target/debug/annas-archive",
+      "env": { "RUST_LOG": "info" }
+    }
+  }
+}
+```
+
+### Through criome-rt jail (ISP censorship bypass)
+
+If your ISP blocks Anna's Archive, use
+[criome-rt](https://github.com/LiGoldragon/criome-rt) to run the MCP
+server inside a WireGuard network namespace:
+
+```json
+{
+  "mcpServers": {
+    "annas-archive": {
+      "command": "sudo",
+      "args": [
+        "criome-rt",
+        "/path/to/jail-config.json",
+        "/path/to/annas-archive/target/debug/annas-archive"
+      ],
+      "env": { "RUST_LOG": "info" }
+    }
+  }
+}
+```
+
+See the criome-rt README for jail configuration and NordVPN setup.
+
 ## License
 
 MIT
