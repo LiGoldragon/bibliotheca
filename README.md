@@ -19,25 +19,25 @@ for result in &response.results {
 }
 ```
 
-## API key
+## Authentication
 
-`search()` works without authentication. `details()` and `download_url()`
-require an Anna's Archive API key.
+`search()` works without authentication.
 
-Anna's Archive grants API access to donors:
-
-1. Go to [annas-archive.gd/donate](https://annas-archive.gd/donate)
-2. Donate via cryptocurrency, Amazon gift card, Cash App, or Alipay
-3. Find your **secret key** in Account Settings
-4. Pass it to the client:
+`details()` and `download_url()` require your Anna's Archive **secret
+key** — the key you received when you created your account (not a
+password, Anna's Archive uses secret keys as login credentials).
 
 ```rust
 let client = Client::with_api_key("your-secret-key");
-let details = client.details("md5hash").await?;
-let download = client.download_url(DownloadRequest::new("md5hash")).await?;
+let details = client.details(&Md5::from("abc123")).await?;
 ```
 
 Without a key, these methods return `Error::KeyRequired`.
+
+**Fast downloads** (`download_url()`) additionally require an active
+membership (donation). See
+[annas-archive.gd/donate](https://annas-archive.gd/donate) for
+membership tiers. `details()` works with any authenticated account.
 
 ## Domain failover
 
