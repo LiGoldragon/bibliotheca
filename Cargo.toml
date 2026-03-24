@@ -1,16 +1,17 @@
 [package]
-name = "annas-archive"
+name = "bibliotheca"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
-description = "Rust client library and MCP server for Anna's Archive"
+authors = ["Li Goldragon <li@goldragon.criome.net>"]
+description = "Bibliography agent — search, retrieve, and manage source documents"
 
 [lib]
-name = "annas_archive"
+name = "bibliotheca"
 path = "src/lib.rs"
 
 [[bin]]
-name = "annas-archive"
+name = "bibliotheca"
 path = "src/main.rs"
 
 [dependencies]

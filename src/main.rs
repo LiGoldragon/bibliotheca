@@ -16,17 +16,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = match api_key {
         Some(key) => {
             tracing::info!("API key configured");
-            annas_archive::Client::with_api_key(key)
+            bibliotheca::Client::with_api_key(key)
         }
         None => {
             tracing::info!("no API key — search only");
-            annas_archive::Client::new()
+            bibliotheca::Client::new()
         }
     };
 
-    let server = annas_archive::mcp::Server::new(Arc::new(client));
+    let server = bibliotheca::mcp::Server::new(Arc::new(client));
 
-    tracing::info!("annas-archive MCP server starting on stdio");
+    tracing::info!("bibliotheca MCP server starting on stdio");
     let service =
         rmcp::ServiceExt::serve(server, rmcp::transport::stdio()).await?;
     service.waiting().await?;
